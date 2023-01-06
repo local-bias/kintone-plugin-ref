@@ -18,11 +18,11 @@ const Component: FCX = ({ className }) => {
             : 'このフィールドは別アプリを直接参照しています'
         }
       >
-        <div className='control-gaia px-2'>
-          <div className='control-label-gaia px-2 py-1'>
+        <div className='control-gaia'>
+          <div className='control-label-gaia'>
             <Name />
           </div>
-          <div className='control-value-gaia px-2 py-1'>
+          <div className='control-value-gaia'>
             <Value />
           </div>
         </div>

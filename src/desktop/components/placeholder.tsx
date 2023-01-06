@@ -6,11 +6,11 @@ import { wrapperWidthState } from '../states/plugin';
 
 const Component: FCX<{ wrapperWidth: number }> = ({ className, wrapperWidth }) => (
   <div className={className}>
-    <div className='control-gaia px-2'>
-      <div className='control-label-gaia px-2 py-1'>
+    <div className='control-gaia'>
+      <div className='control-label-gaia'>
         <Skeleton variant='text' width={wrapperWidth > 100 ? 100 : wrapperWidth} />
       </div>
-      <div className='control-value-gaia px-2 py-1'>
+      <div className='control-value-gaia'>
         <Skeleton variant='text' width={wrapperWidth} />
       </div>
     </div>
