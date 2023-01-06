@@ -2,7 +2,7 @@ import { kx } from '@type/kintone.api';
 import React, { FC, memo, Suspense } from 'react';
 
 import Placeholder from './components/placeholder';
-import Field from './components/field';
+import Field from './components/model/field';
 import { RecoilRoot } from 'recoil';
 import {
   conditionState,

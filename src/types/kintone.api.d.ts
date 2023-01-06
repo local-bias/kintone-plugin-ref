@@ -3,11 +3,17 @@ import {
   Record as DefaultRecord,
   Layout as DefaultLayout,
 } from '@kintone/rest-api-client/lib/client/types';
-import { OneOf as DefaultFieldProperty } from '@kintone/rest-api-client/lib/KintoneFields/types/property';
+import {
+  OneOf as DefaultFieldProperty,
+  Subtable as PropertySubtable,
+  InSubtable as PropertyInsubtable,
+} from '@kintone/rest-api-client/lib/KintoneFields/types/property';
 import {
   OneOf as DefaultField,
   Creator as DefaultCreator,
   UserSelect as DefaultUserSelect,
+  Subtable as DefaultSubtable,
+  InSubtable as DefaultInSubtable,
 } from '@kintone/rest-api-client/lib/KintoneFields/types/field';
 import {
   OneOf as DefaultLayoutField,
@@ -37,6 +43,14 @@ declare namespace kx {
     type Creator = DefaultCreator;
     type UserSelect = DefaultUserSelect;
     type UserEntity = Creator['value'];
+    type Subtable = DefaultSubtable<{
+      [fieldCode: string]: DefaultInSubtable;
+    }>;
+  }
+
+  namespace property {
+    type Subtable = PropertySubtable<Record<string, PropertyInsubtable>>;
+    type InSubtable = PropertyInsubtable;
   }
 
   namespace layout {
