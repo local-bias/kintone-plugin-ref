@@ -12,6 +12,7 @@ import {
 import {
   OneOf as DefaultLayoutField,
   Label as DefaultLayoutLabel,
+  Spacer as DefaultLayoutSpacer,
 } from '@kintone/rest-api-client/lib/KintoneFields/types/fieldLayout';
 import {
   Group as DefaultGroup,
@@ -40,6 +41,7 @@ declare namespace kx {
 
   namespace layout {
     type Label = DefaultLayoutLabel;
+    type Spacer = DefaultLayoutSpacer;
     type Row = DefaultRow<LayoutField[]>;
     type Group = DefaultGroup<Row[]>;
   }

@@ -39,7 +39,14 @@ export const createConfig = (): kintone.plugin.Storage => ({
   conditions: [getNewCondition()],
 });
 
-export const getNewCondition = (): kintone.plugin.Condition => ({ fields: [''] });
+export const getNewCondition = (): kintone.plugin.Condition => ({
+  spaceId: '',
+  keyField: '',
+  refferenceAppId: '',
+  refferenceKeyField: '',
+  refferenceField: '',
+  width: 0,
+});
 
 export const getUpdatedStorage = <T extends keyof kintone.plugin.Condition>(
   storage: kintone.plugin.Storage | null,

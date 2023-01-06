@@ -1,15 +1,41 @@
 import React, { FCX } from 'react';
 import styled from '@emotion/styled';
+import { Link } from 'react-feather';
 
-import FieldsForm from './form-fields';
+import SpaceIdForm from './form-space-id';
+import RefferenceFieldForm from './form-refference-field';
+import RefferenceAppForm from './form-refference-app';
+import RefferenceKeyFieldForm from './form-refference-key-field';
+import KeyFieldForm from './form-key-field';
 import DeletionButton from './condition-deletion-button';
 
 const Component: FCX = ({ className }) => {
   return (
     <div {...{ className }}>
       <div>
-        <h3>対象フィールド</h3>
-        <FieldsForm />
+        <h3>設置するスペース</h3>
+        <SpaceIdForm />
+      </div>
+      <div>
+        <h3>参照アプリ</h3>
+        <RefferenceAppForm />
+      </div>
+      <div>
+        <h3>参照フィールド</h3>
+        <RefferenceFieldForm />
+      </div>
+      <div className='flex gap-6 items-end'>
+        <div>
+          <h3>参照先のキー情報</h3>
+          <RefferenceKeyFieldForm />
+        </div>
+        <div className='py-4'>
+          <Link width={30} height={30} strokeWidth={1} />
+        </div>
+        <div>
+          <h3>このアプリのキー情報</h3>
+          <KeyFieldForm />
+        </div>
       </div>
       <DeletionButton />
     </div>
@@ -25,6 +51,21 @@ const StyledComponent = styled(Component)`
       font-weight: 500;
       margin-bottom: 16px;
     }
+  }
+  .py-4 {
+    padding: 1rem 0;
+  }
+  .flex {
+    display: flex;
+  }
+  .gap-6 {
+    gap: 1.5rem;
+  }
+  .items-end {
+    align-items: flex-end;
+  }
+  .items-center {
+    align-items: center;
   }
 `;
 

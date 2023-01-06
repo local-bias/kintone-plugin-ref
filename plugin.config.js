@@ -7,12 +7,12 @@ module.exports = {
       type: 'APP',
       name: {
         en: 'kintone-plugin-template',
-        ja: 'プラグインテンプレート',
+        ja: '関連フィールド表示プラグイン',
         zh: '插件模板',
       },
       description: {
         en: 'kintone-plugin-template',
-        ja: 'プラグインの説明をここに記載します',
+        ja: '特定のキー情報が一対一に紐づくようなアプリから、フィールド情報を詳細画面に表示します',
         zh: '插件模板',
       },
       icon: 'icon.png',

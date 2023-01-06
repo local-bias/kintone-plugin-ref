@@ -110,6 +110,30 @@ export const getLabelFromLayoutFields = (layout: kx.LayoutField[]): kx.layout.La
   return labels;
 };
 
+export const getSpacers = async (layout: kx.Layout): Promise<kx.layout.Spacer[]> => {
+  const spacers: kx.layout.Spacer[] = [];
+  for (const section of layout) {
+    if (section.type === 'GROUP') {
+      for (const row of section.layout) {
+        spacers.push(...getSpacerFromLayoutFields(row.fields));
+      }
+    } else if (section.type === 'ROW') {
+      spacers.push(...getSpacerFromLayoutFields(section.fields));
+    }
+  }
+  return spacers;
+};
+
+export const getSpacerFromLayoutFields = (layout: kx.LayoutField[]): kx.layout.Spacer[] => {
+  const labels: kx.layout.Spacer[] = [];
+  for (const field of layout) {
+    if (field.type === 'SPACER') {
+      labels.push(field);
+    }
+  }
+  return labels;
+};
+
 /** 指定のフィールドコードのフィールドを操作します */
 export const controlField = (
   record: kx.RecordData,
