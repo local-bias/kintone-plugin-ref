@@ -65,9 +65,15 @@ export const refferenceRecordState = selector<kx.RecordData | null>({
     const currentKeyField = currentRecord[keyField];
     const keyValue = currentKeyField.value;
 
-    const query = ['CHECK_BOX', 'RADIO_BUTTON', 'MULTI_SELECT', 'DROP_DOWN'].includes(
-      currentKeyField?.type
-    )
+    const query = [
+      'CHECK_BOX',
+      'RADIO_BUTTON',
+      'MULTI_SELECT',
+      'DROP_DOWN',
+      'USER_SELECT',
+      'ORGANIZATION_SELECT',
+      'GROUP_SELECT',
+    ].includes(currentKeyField?.type)
       ? `${refferenceKeyField} in ("${keyValue}")`
       : `${refferenceKeyField} = "${keyValue}"`;
     const { records } = await kintoneClient.record.getRecords({ app: refferenceAppId, query });
