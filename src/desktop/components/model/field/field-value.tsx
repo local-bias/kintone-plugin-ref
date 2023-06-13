@@ -1,4 +1,4 @@
-import { kx } from '@type/kintone.api';
+import { kx } from '@/type/kintone.api';
 import React, { FC } from 'react';
 import { Entity } from '../../ui/entity';
 

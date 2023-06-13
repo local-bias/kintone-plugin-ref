@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import { TableCell, TableRow } from '@mui/material';
-import { kx } from '@type/kintone.api';
+import { kx } from '@/type/kintone.api';
 import React, { FC } from 'react';
 import { useRecoilValue } from 'recoil';
 import { conditionState, refferenceAppFieldsState } from '../../../states/plugin';

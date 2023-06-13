@@ -4,7 +4,7 @@ import {
   getFieldProperties,
   kintoneClient,
   getSpacers,
-} from '@common/kintone-api';
+} from '@/common/kintone-api';
 import { kx } from '../../types/kintone.api';
 import { refferenceAppIdState } from './plugin';
 

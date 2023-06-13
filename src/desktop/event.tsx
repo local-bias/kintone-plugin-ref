@@ -1,5 +1,5 @@
 import React from 'react';
-import { restoreStorage } from '@common/plugin';
+import { restoreStorage } from '@/common/plugin';
 import { getSpaceElement } from '@lb-ribbit/kintone-xapp';
 import { createRoot, Root } from 'react-dom/client';
 import App from './app';
