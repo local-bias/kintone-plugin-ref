@@ -1,4 +1,4 @@
-import { kx } from '@/type/kintone.api';
+import { kx } from '@/types/kintone.api';
 import React, { FC } from 'react';
 import { useRecoilValue } from 'recoil';
 import { conditionState, refferenceAppFieldsState } from '../../../states/plugin';

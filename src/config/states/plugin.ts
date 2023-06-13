@@ -1,5 +1,5 @@
 import { getConditionField, getUpdatedStorage } from '@/common/plugin';
-from { produce } from 'immer';
+import { produce } from 'immer';
 import { atom, selector, selectorFamily } from 'recoil';
 
 const PREFIX = 'plugin';

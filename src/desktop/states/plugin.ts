@@ -1,5 +1,5 @@
 import { getFieldProperties, getUserDefinedFields, kintoneClient } from '@/common/kintone-api';
-import { kx } from '@/type/kintone.api';
+import { kx } from '@/types/kintone.api';
 import { atom, selector } from 'recoil';
 
 const PREFIX = 'plugin';
