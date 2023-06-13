@@ -7,13 +7,14 @@ import {
 } from '@/common/kintone-api';
 import { kx } from '../../types/kintone.api';
 import { refferenceAppIdState } from './plugin';
+import { getAllApps } from '@konomi-app/kintone-utilities';
 
 const PREFIX = 'kintone';
 
 export const allKintoneAppsState = atom<kx.App[]>({
   key: `${PREFIX}allKintoneAppsState`,
   default: (async () => {
-    const { apps } = await kintoneClient.app.getApps({});
+    const apps = await getAllApps({});
     return apps;
   })(),
 });
