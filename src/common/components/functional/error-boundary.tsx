@@ -1,85 +1,57 @@
-import React, { FC, FCX } from 'react';
-import styled from '@emotion/styled';
-import { Button } from '@mui/material';
-import { URL_HOMEPAGE, URL_INQUIRY } from '@/common/static';
-import { ErrorBoundary } from '@sentry/react';
-import { ErrorIcon } from '../icon/error';
+import React, { FC, useState } from 'react';
+import { Alert, AlertTitle, Button } from '@mui/material';
+import { ErrorBoundary, FallbackProps } from 'react-error-boundary';
+import { URL_INQUIRY } from '@/common/static';
+import { LoaderWithLabel } from '@konomi-app/ui-react';
 
-const Component: FCX<{ error: Error; resetError: () => void }> = ({
-  className,
-  error,
-  resetError,
-}) => (
-  <div {...{ className }}>
-    <ErrorIcon width={512} />
-    <div className='container'>
-      <h1>エラーが発生しました</h1>
+const Component: FC<FallbackProps> = ({ error, resetErrorBoundary }) => {
+  const [loading, setLoading] = useState(false);
 
-      <div>
+  const onRetry = () => {
+    setLoading(true);
+    setTimeout(() => {
+      resetErrorBoundary();
+      setLoading(false);
+    }, 2000);
+  };
+
+  if (loading) {
+    return <LoaderWithLabel label='再試行中' />;
+  }
+
+  return (
+    <div className='m-2'>
+      <Alert severity='error'>
+        <AlertTitle title={error.message}>エラーが発生しました</AlertTitle>
         <p>予期しないエラーが発生しました</p>
-        <p>リトライしても解決しない場合は、開発者までお問い合わせください。</p>
-        <Button
-          variant='contained'
-          color='inherit'
-          size='large'
-          onClick={() => window.open(URL_INQUIRY, '_blank')}
-        >
-          お問い合わせ
-        </Button>
-        <a href={URL_HOMEPAGE}>開発者HP</a>
-        <p className='error'>{error.message}</p>
-      </div>
-      <Button variant='contained' color='primary' size='large' onClick={resetError}>
-        リトライ
-      </Button>
+        <p>
+          リトライしても解決しない場合は、下記のエラー内容を添えて開発者までお問い合わせください。
+        </p>
+        <div className='p-4 bg-red-600 bg-opacity-10 rounded'>
+          <details>
+            <summary className='text-red-700 cursor-pointer'>
+              {error.message ?? 'エラーの詳細'}
+            </summary>
+            <pre className='bg-gray-800 text-gray-100 p-4'>
+              <code>{JSON.stringify(error, null, 2)}</code>
+            </pre>
+          </details>
+        </div>
+        <div className='mt-8 flex gap-4'>
+          <Button color='error' onClick={onRetry}>
+            リトライ
+          </Button>
+          <Button color='error' onClick={() => window.open(URL_INQUIRY, '_blank')}>
+            お問い合わせ
+          </Button>
+        </div>
+      </Alert>
     </div>
-  </div>
-);
-
-const StyledComponent = styled(Component)`
-  width: 100%;
-  height: 100%;
-  min-height: 60vh;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
-  padding: 24px 16px;
-  background-color: #fff;
-
-  h1 {
-    font-size: 20px;
-    font-weight: 600;
-    color: #777;
-  }
-
-  svg {
-    width: 200px;
-    max-width: 95vw;
-  }
-
-  & > .container {
-    min-width: 500px;
-    display: flex;
-    flex-direction: column;
-    flex-wrap: wrap;
-    justify-content: space-around;
-    align-items: center;
-
-    & > h1 {
-      margin: 16px 0;
-    }
-    & > div > .error {
-      font-size: 60%;
-    }
-  }
-`;
+  );
+};
 
 const Container: FC<{ children: React.ReactNode }> = ({ children }) => (
-  <ErrorBoundary fallback={(errorProps) => <StyledComponent {...errorProps} />}>
-    {children}
-  </ErrorBoundary>
+  <ErrorBoundary FallbackComponent={Component}>{children}</ErrorBoundary>
 );
 
 export const PluginErrorBoundary = Container;
