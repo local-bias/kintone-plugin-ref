@@ -1,17 +1,11 @@
 import { atom, selector } from 'recoil';
-import {
-  getUserDefinedFields,
-  getFieldProperties,
-  kintoneClient,
-  getSpacers,
-} from '@/common/kintone-api';
-import { kx } from '../../types/kintone.api';
+import { getUserDefinedFields, getFieldProperties, getSpacers } from '@/common/kintone-api';
 import { refferenceAppIdState } from './plugin';
-import { getAllApps } from '@konomi-app/kintone-utilities';
+import { getAllApps, getFormLayout, kintoneAPI } from '@konomi-app/kintone-utilities';
 
 const PREFIX = 'kintone';
 
-export const allKintoneAppsState = atom<kx.App[]>({
+export const allKintoneAppsState = atom<kintoneAPI.App[]>({
   key: `${PREFIX}allKintoneAppsState`,
   default: (async () => {
     const apps = await getAllApps({});
@@ -19,7 +13,7 @@ export const allKintoneAppsState = atom<kx.App[]>({
   })(),
 });
 
-export const appFieldsState = selector<kx.FieldProperty[]>({
+export const appFieldsState = selector<kintoneAPI.FieldProperty[]>({
   key: `${PREFIX}appFieldsState`,
   get: async () => {
     const properties = await getUserDefinedFields({ preview: true });
@@ -30,7 +24,7 @@ export const appFieldsState = selector<kx.FieldProperty[]>({
   },
 });
 
-export const refferenceAppFieldsState = selector<kx.FieldProperty[]>({
+export const refferenceAppFieldsState = selector<kintoneAPI.FieldProperty[]>({
   key: `${PREFIX}refferenceAppFieldsState`,
   get: async ({ get }) => {
     const refferenceApp = get(refferenceAppIdState);
@@ -45,14 +39,14 @@ export const refferenceAppFieldsState = selector<kx.FieldProperty[]>({
   },
 });
 
-export const appSpacersState = atom<kx.layout.Spacer[]>({
+export const appSpacersState = atom<kintoneAPI.layout.Spacer[]>({
   key: `${PREFIX}appSpacersState`,
   default: (async () => {
     const app = kintone.app.getId();
     if (!app) {
       throw 'アプリ情報の取得に失敗しました';
     }
-    const { layout } = await kintoneClient.app.getFormLayout({ app, preview: true });
+    const { layout } = await getFormLayout({ app, preview: true });
     const spacers = await getSpacers(layout);
     return spacers;
   })(),

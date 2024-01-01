@@ -1,8 +1,8 @@
-import { kx } from '@/types/kintone.api';
 import React, { FC } from 'react';
 import { Entity } from '../../ui/entity';
+import { kintoneAPI } from '@konomi-app/kintone-utilities';
 
-const Component: FC<{ field: kx.RecordData[keyof kx.RecordData] }> = ({ field }) => {
+const Component: FC<{ field: kintoneAPI.Field }> = ({ field }) => {
   if (!field || !field.value) {
     return null;
   }

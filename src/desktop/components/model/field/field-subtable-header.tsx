@@ -1,11 +1,11 @@
 import styled from '@emotion/styled';
-import { TableCell, TableRow } from '@mui/material';
-import { kx } from '@/types/kintone.api';
+import { TableRow } from '@mui/material';
 import React, { FC } from 'react';
 import { useRecoilValue } from 'recoil';
 import { conditionState, refferenceAppFieldsState } from '../../../states/plugin';
 import { Th } from '../../ui/th';
 import { Thead } from '../../ui/thead';
+import { kintoneAPI } from '@konomi-app/kintone-utilities';
 
 const Component: FC = () => {
   const condition = useRecoilValue(conditionState);
@@ -15,7 +15,7 @@ const Component: FC = () => {
   }
 
   const found = refferenceAppFields.find((field) => field.code === condition.refferenceField) as
-    | kx.property.Subtable
+    | kintoneAPI.property.Subtable
     | undefined;
   if (!found) {
     return null;
