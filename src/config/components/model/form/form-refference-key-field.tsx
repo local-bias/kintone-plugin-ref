@@ -1,14 +1,13 @@
-import { Autocomplete, Skeleton, TextField } from '@mui/material';
+import { Skeleton } from '@mui/material';
 import React, { FC, FCX, memo, Suspense } from 'react';
 import { useRecoilCallback, useRecoilValue } from 'recoil';
 
 import { refferenceAppFieldsState } from '../../../states/kintone';
 import { refferenceKeyFieldState } from '../../../states/plugin';
-import styled from '@emotion/styled';
+import { RecoilFieldSelect } from '@konomi-app/kintone-utilities-react';
 
 const Component: FCX = ({ className }) => {
   const selected = useRecoilValue(refferenceKeyFieldState);
-  const fields = useRecoilValue(refferenceAppFieldsState);
 
   const onFieldChange = useRecoilCallback(
     ({ set }) =>
@@ -20,42 +19,20 @@ const Component: FCX = ({ className }) => {
 
   return (
     <div className={className}>
-      <Autocomplete
-        value={fields.find((field) => field.code === selected) ?? null}
-        sx={{ width: '350px' }}
-        options={fields}
-        isOptionEqualToValue={(option, v) => option.code === v.code}
-        getOptionLabel={(option) => `${option.label}(${option.code})`}
-        onChange={(_, field) => onFieldChange(field?.code ?? '')}
-        renderInput={(params) => (
-          <TextField
-            {...params}
-            label='フィールド名(フィールドコード)'
-            variant='outlined'
-            color='primary'
-          />
-        )}
+      <RecoilFieldSelect
+        label='参照先のキー情報'
+        state={refferenceAppFieldsState}
+        fieldCode={selected}
+        onChange={onFieldChange}
       />
     </div>
   );
 };
 
-const StyledComponent = styled(Component)`
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-
-  .row {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-`;
-
 const Container: FC = () => {
   return (
     <Suspense fallback={<Skeleton width={360} height={56} variant='rounded' />}>
-      <StyledComponent />
+      <Component />
     </Suspense>
   );
 };

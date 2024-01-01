@@ -8,35 +8,39 @@ import RefferenceAppForm from './form-refference-app';
 import RefferenceKeyFieldForm from './form-refference-key-field';
 import KeyFieldForm from './form-key-field';
 import DeletionButton from './condition-deletion-button';
+import { PluginFormSection, PluginFormTitle } from '@konomi-app/kintone-utilities-react';
 
 const Component: FCX = ({ className }) => {
   return (
     <div {...{ className }}>
-      <div>
-        <h3>設置するスペース</h3>
+      <PluginFormSection>
+        <PluginFormTitle>設置するスペース</PluginFormTitle>
         <SpaceIdForm />
-      </div>
-      <div>
-        <h3>参照アプリ</h3>
+      </PluginFormSection>
+      <PluginFormSection>
+        <PluginFormTitle>参照アプリ</PluginFormTitle>
         <RefferenceAppForm />
-      </div>
-      <div>
-        <h3>参照フィールド</h3>
+      </PluginFormSection>
+      <PluginFormSection>
+        <PluginFormTitle>参照フィールド</PluginFormTitle>
         <RefferenceFieldForm />
-      </div>
-      <div className='flex gap-6 items-end'>
-        <div>
-          <h3>参照先のキー情報</h3>
-          <RefferenceKeyFieldForm />
+      </PluginFormSection>
+      <PluginFormSection>
+        <PluginFormTitle>紐づけ設定</PluginFormTitle>
+        <div className='flex gap-6 items-end'>
+          <div>
+            <h3>参照先のキー情報</h3>
+            <RefferenceKeyFieldForm />
+          </div>
+          <div className='py-4'>
+            <Link width={30} height={30} strokeWidth={1} />
+          </div>
+          <div>
+            <h3>このアプリのキー情報</h3>
+            <KeyFieldForm />
+          </div>
         </div>
-        <div className='py-4'>
-          <Link width={30} height={30} strokeWidth={1} />
-        </div>
-        <div>
-          <h3>このアプリのキー情報</h3>
-          <KeyFieldForm />
-        </div>
-      </div>
+      </PluginFormSection>
       <DeletionButton />
     </div>
   );
