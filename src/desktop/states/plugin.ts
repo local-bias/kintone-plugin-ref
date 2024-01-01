@@ -1,5 +1,5 @@
-import { getFieldProperties, getUserDefinedFields, kintoneClient } from '@/common/kintone-api';
-import { kx } from '@/types/kintone.api';
+import { getFieldProperties } from '@/common/kintone-api';
+import { getAllApps, getRecords, kintoneAPI } from '@konomi-app/kintone-utilities';
 import { atom, selector } from 'recoil';
 
 const PREFIX = 'plugin';
@@ -9,7 +9,7 @@ export const conditionState = atom<kintone.plugin.Condition | null>({
   default: null,
 });
 
-export const currentRecordState = atom<kx.RecordData | null>({
+export const currentRecordState = atom<kintoneAPI.RecordData | null>({
   key: `${PREFIX}currentRecordState`,
   default: null,
 });
@@ -24,20 +24,28 @@ export const eventTypeState = atom<kintone.EventType | null>({
   default: null,
 });
 
-export const refferenceAppState = selector<kx.App | null>({
+const appAppsState = selector<kintoneAPI.App[]>({
+  key: `${PREFIX}appAppsState`,
+  get: async () => {
+    const apps = await getAllApps();
+    return apps;
+  },
+});
+
+export const refferenceAppState = selector<kintoneAPI.App | null>({
   key: `${PREFIX}refferenceAppState`,
   get: async ({ get }) => {
     const condition = get(conditionState);
     if (!condition || !condition.refferenceAppId) {
       return null;
     }
-    const { apps } = await kintoneClient.app.getApps({ ids: [condition.refferenceAppId] });
+    const apps = await get(appAppsState);
     const found = apps.find((app) => app.appId === condition.refferenceAppId);
     return found ?? null;
   },
 });
 
-export const refferenceAppFieldsState = selector<kx.FieldProperty[]>({
+export const refferenceAppFieldsState = selector<kintoneAPI.FieldProperty[]>({
   key: `${PREFIX}refferenceAppFieldsState`,
   get: async ({ get }) => {
     const condition = get(conditionState);
@@ -52,7 +60,7 @@ export const refferenceAppFieldsState = selector<kx.FieldProperty[]>({
   },
 });
 
-export const refferenceRecordState = selector<kx.RecordData | null>({
+export const refferenceRecordState = selector<kintoneAPI.RecordData | null>({
   key: `${PREFIX}refferenceRecordState`,
   get: async ({ get }) => {
     const condition = get(conditionState);
@@ -76,7 +84,7 @@ export const refferenceRecordState = selector<kx.RecordData | null>({
     ].includes(currentKeyField?.type)
       ? `${refferenceKeyField} in ("${keyValue}")`
       : `${refferenceKeyField} = "${keyValue}"`;
-    const { records } = await kintoneClient.record.getRecords({ app: refferenceAppId, query });
+    const { records } = await getRecords({ app: refferenceAppId, query });
     const [refferenceRecord] = records;
     return refferenceRecord ?? null;
   },
@@ -96,7 +104,7 @@ export const refferenceFieldNameState = selector<string>({
   },
 });
 
-export const refferenceFieldState = selector<kx.RecordData[keyof kx.RecordData] | null>({
+export const refferenceFieldState = selector<kintoneAPI.Field | null>({
   key: `${PREFIX}refferenceFieldState`,
   get: ({ get }) => {
     const condition = get(conditionState);
