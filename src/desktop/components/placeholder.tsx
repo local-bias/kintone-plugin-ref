@@ -4,7 +4,7 @@ import React, { FC, FCX } from 'react';
 import { useRecoilValue } from 'recoil';
 import { wrapperWidthState } from '../states/plugin';
 
-const Component: FCX<{ wrapperWidth: number }> = ({ className, wrapperWidth }) => (
+const FieldPlaceholder: FCX<{ wrapperWidth: number }> = ({ className, wrapperWidth }) => (
   <div className={className}>
     <div className='control-gaia'>
       <div className='control-label-gaia'>
@@ -17,7 +17,7 @@ const Component: FCX<{ wrapperWidth: number }> = ({ className, wrapperWidth }) =
   </div>
 );
 
-const StyledComponent = styled(Component)`
+const StyledFieldPlaceholder = styled(FieldPlaceholder)`
   .px-2 {
     padding-left: 8px;
     padding-right: 8px;
@@ -28,9 +28,9 @@ const StyledComponent = styled(Component)`
   }
 `;
 
-const Container: FC = () => {
+const PlaceHolderContainer: FC = () => {
   const wrapperWidth = useRecoilValue(wrapperWidthState);
-  return <StyledComponent wrapperWidth={wrapperWidth} />;
+  return <StyledFieldPlaceholder wrapperWidth={wrapperWidth} />;
 };
 
-export default Container;
+export default PlaceHolderContainer;
