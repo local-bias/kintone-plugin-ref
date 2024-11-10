@@ -7,7 +7,7 @@ import FieldValue from './field-value';
 import FieldTitle from './field-title';
 import FieldSubtable from './field-subtable';
 
-const Component: FC = () => {
+const FieldComponent: FC = () => {
   const refferenceField = useRecoilValue(refferenceFieldState);
   if (!refferenceField || !refferenceField.value) {
     return null;
@@ -30,4 +30,4 @@ const Component: FC = () => {
   );
 };
 
-export default Component;
+export default FieldComponent;
