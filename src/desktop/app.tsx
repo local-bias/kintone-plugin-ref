@@ -18,7 +18,7 @@ type Props = {
   wrapperWidth: number;
 };
 
-const Component: FC<Props> = (props) => (
+const App: FC<Props> = (props) => (
   <RecoilRoot
     initializeState={({ set }) => {
       set(conditionState, props.condition);
@@ -33,4 +33,4 @@ const Component: FC<Props> = (props) => (
   </RecoilRoot>
 );
 
-export default memo(Component);
+export default App;
