@@ -7,7 +7,7 @@ import { Th } from '../../ui/th';
 import { Thead } from '../../ui/thead';
 import { kintoneAPI } from '@konomi-app/kintone-utilities';
 
-const Component: FC = () => {
+const FieldSubtableHeader: FC = () => {
   const condition = useRecoilValue(conditionState);
   const refferenceAppFields = useRecoilValue(refferenceAppFieldsState);
   if (!condition) {
@@ -34,6 +34,6 @@ const Component: FC = () => {
   );
 };
 
-const StyledComponent = styled(Component)``;
+const StyledFieldSubtableHeader = styled(FieldSubtableHeader)``;
 
-export default StyledComponent;
+export default StyledFieldSubtableHeader;
